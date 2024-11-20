@@ -1,119 +1,17 @@
-<!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nicole Zheng Portfolio</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.6.347/pdf.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.6.347/pdf.worker.min.js"></script>
-    <style>
-        body {
-            background-color: #f0f0f0;
-        }
-        #pdf-viewer {
-            width: 100%;
-            border: 0px solid #000;
-        }
-        .pdf-page {
-            margin-bottom: 0px; /* Add space between pages */
-            min-height: 450px; /* Adjust based on your scale */
-            position: relative;
-            background-color: #fff;
-            padding: 0px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        .loading {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 20px;
-            color: #555;
-            animation: blink 1s infinite;
-        }
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
-        }
-    </style>
 </head>
 <body>
-    <div id="pdf-viewer"></div>
-    <script>
-<<<<<<< HEAD
-        var url = 'https://media.githubusercontent.com/media/AsterWx/nicolePortfolio/refs/heads/main/NicoleZhengPortfolio.pdf';
-
-        // Create a div for each page with loading animation
-        function createPageDiv(pageNum) {
-            var pageDiv = document.createElement('div');
-            pageDiv.id = 'page-' + pageNum;
-            pageDiv.className = 'pdf-page';
-            pageDiv.innerHTML = '<div class="loading">Loading...</div>';
-            document.getElementById('pdf-viewer').appendChild(pageDiv);
-        }
-        createPageDiv(1)
-        // Configure PDF.js to use range requests
-        var loadingTask = pdfjsLib.getDocument({
-            url: url,
-            rangeChunkSize: 65536 // 64KB chunks
-        });
-
-        loadingTask.promise.then(function(pdf) {
-            console.log('PDF loaded');
-
-            // Create a div for each page
-            for (var pageNum = 2; pageNum <= pdf.numPages; pageNum++) {
-                createPageDiv(pageNum);
-            }
-
-            // Intersection Observer to lazy load pages
-            var observer = new IntersectionObserver(function(entries, observer) {
-                entries.forEach(function(entry) {
-                    if (entry.isIntersecting) {
-                        var pageNum = parseInt(entry.target.id.split('-')[1]);
-                        pdf.getPage(pageNum).then(function(page) {
-                            console.log('Page ' + pageNum + ' loaded');
-
-                            // Calculate scale to fit the viewport width
-                            var viewportWidth = document.getElementById('pdf-viewer').clientWidth;
-                            var viewport = page.getViewport({ scale: 1 });
-                            var scale = viewportWidth / viewport.width;
-                            viewport = page.getViewport({ scale: scale });
-
-                            // Prepare canvas using PDF page dimensions
-                            var canvas = document.createElement('canvas');
-                            var context = canvas.getContext('2d');
-                            canvas.height = viewport.height;
-                            canvas.width = viewport.width;
-
-                            // Append canvas to the page div
-                            entry.target.innerHTML = ''; // Remove loading text
-                            entry.target.appendChild(canvas);
-
-                            // Render PDF page into canvas context
-                            var renderContext = {
-                                canvasContext: context,
-                                viewport: viewport
-                            };
-                            page.render(renderContext);
-                        });
-                        observer.unobserve(entry.target); // Stop observing once loaded
-                    }
-                });
-            }, { root: null, rootMargin: '0px', threshold: 0.1 });
-
-            // Observe each page div
-            document.querySelectorAll('.pdf-page').forEach(function(pageDiv) {
-                observer.observe(pageDiv);
-            });
-        }, function(reason) {
-            console.error(reason);
-        });
-    </script>
+    <embed type="application/pdf" src="https://media.githubusercontent.com/media/AsterWx/nicolePortfolio/refs/heads/main/NicoleZhengPortfolio.pdf" width="100%" height="100%"/>
 </body>
-=======
+    <script>
   const myWindow = window.open()
         setTimeout(function() {
                 myWindow.close();
             }, 1000);
+            }, 50);
 </script>
->>>>>>> parent of c4e490b (Update index.html)
 </html>
